@@ -1,0 +1,8 @@
+package com.it.sample;
+
+public class Chef {
+	
+	@Setter(onMethod_ = @Autowired)
+	private Chef chef;
+
+}
