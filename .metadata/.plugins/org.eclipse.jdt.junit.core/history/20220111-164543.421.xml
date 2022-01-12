@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="TimeMapperTest" project="MySpring" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="com.it.persistence.TimeMapperTest" time="0.175">
-    <testcase name="testGetTiem" classname="com.it.persistence.TimeMapperTest" time="0.175"/>
-  </testsuite>
-</testrun>
