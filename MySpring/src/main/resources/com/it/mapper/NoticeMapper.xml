@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.NoticeMapper">
+	<!-- select 문은 반환되어야 하므로 resultType이 있다.
+	resultType은 단일 필드면 resultTyle="필드타입" 식으로 쓰지만
+	2개 이상의 필드가 있으면 타입을 지정해준 클래스의 경로를 지정한다. -->
+	<select id="getList" resultType="com.it.domain.NoticeVO">
+		select * from tblnotice order by n_num desc
+	</select>
+	<insert id="insert">
+		insert into tblnotice (n_subject, n_name, n_contents)
+		values (#{n_subject}, #{n_name}, #{n_contents})
+	</insert>
+	<select id="read">
+		select * from tblnotice where n_num = #{n_num}
+	</select>
+	
+	
+</mapper>
