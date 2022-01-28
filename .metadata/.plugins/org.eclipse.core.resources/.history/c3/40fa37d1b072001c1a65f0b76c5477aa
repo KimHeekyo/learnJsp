@@ -1,5 +1,0 @@
-package com.it.mapper;
-
-public interface TimeMapper {
-
-}

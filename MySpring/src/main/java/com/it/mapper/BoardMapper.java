@@ -5,6 +5,7 @@ import java.util.List;
 import com.it.domain.BoardVO;
 
 public interface BoardMapper {
+	
 	public List<BoardVO> getList();	// 값을 넘기지 않았으므로 xml에서 #기호를 쓰지않음
 	
 	public void insert(BoardVO board);

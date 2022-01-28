@@ -33,6 +33,33 @@ public class NoticeMapperTest {
 		//log.info(notice);
 	}
 	
+	//@Test
+	public void testRead() {
+		NoticeVO notice = new NoticeVO();
+		notice.setN_num(2);
+		
+		notice = mapper.read(notice);
+		log.info(notice);
+	}
+	
+	//@Test
+	public void testUpdate() {
+		NoticeVO notice = new NoticeVO();
+		notice.setN_num(3);
+		notice.setN_subject("혼자만들었다");
+		notice.setN_name("희교");
+		notice.setN_contents("테스트");
+		mapper.update(notice);
+		//log.info(notice);
+	}
+	
+	//@Test
+	public void testDelete() {
+		NoticeVO notice = new NoticeVO();
+		notice.setN_num(3);
+		mapper.delete(notice);
+	}
+	
 	
 
 }
