@@ -13,7 +13,7 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<h6 class="m-0 font-weight-bold text-primary">
-					<a href="/product2/list">상품목록</a>
+					<a href="/shop/list">상품목록</a>
 				</h6>
 			</div>
 			<div class="card-body">
@@ -43,29 +43,6 @@
 							src="/resources/product2/${product.p_image}" height="200">
 					</div>
 				</div>
-
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<label>등록일</label> <input type="text" class="form-control"
-							value="${product.p_rdate}" readonly>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<label>수정일</label> <input type="text" class="form-control"
-							value="${product.p_udate}" readonly>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<div class="col-sm-6">
-						<a href="/product2/update?p_code=${product.p_code}">[수정]</a>
-						&nbsp;&nbsp;&nbsp; <a
-							href="/product2/delete?p_code=${product.p_code}">[삭제]</a>
-					</div>
-				</div>
-
 			</div>
 		</div>
 	</div>

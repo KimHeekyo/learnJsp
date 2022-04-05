@@ -34,17 +34,17 @@
 												<table>
 													<tr>
 														<td align="center"><img
-															src="/resources/product2/${product.p_image}" width="300"></td>
+															src="/resources/product2/${product.p_image}" width="300" height="300"></td>
 													</tr>
 													<tr>
-														<td align="center">${product.p_name}</td>
+														<td align="center"><a href="/product2/view?p_code=${product.p_code}">${product.p_name}</a></td>
 													</tr>
 
 													<tr>
 														<td align="center">${product.p_price}원</td>
 													</tr>
 													<tr>
-														<td>
+														<td align="center">
 															<form method="post" action="/shop/cart">
 																<input type="hidden" name="p_code"
 																	value="${product.p_code}"> <select
@@ -65,17 +65,17 @@
 											<table>
 												<tr>
 													<td align="center"><img
-														src="/resources/product2/${product.p_image}" width="300"></td>
+														src="/resources/product2/${product.p_image}" width="300" height="300"></td>
 												</tr>
 												<tr>
-													<td align="center">${product.p_name}</td>
+													<td align="center"><a href="/product2/view?p_code=${product.p_code}">${product.p_name}</a></td>
 												</tr>
 
 												<tr>
 													<td align="center">${product.p_price}원</td>
 												</tr>
 												<tr>
-													<td>
+													<td align="center">
 														<form method="post" action="/shop/cart">
 															<input type="hidden" name="p_code"
 																value="${product.p_code}"> <select name="cs_cnt">
@@ -95,17 +95,17 @@
 											<table>
 												<tr>
 													<td align="center"><img
-														src="/resources/product2/${product.p_image}" width="300"></td>
+														src="/resources/product2/${product.p_image}" width="300" height="300"></td>
 												</tr>
 												<tr>
-													<td align="center">${product.p_name}</td>
+													<td align="center"><a href="/product2/view?p_code=${product.p_code}">${product.p_name}</a></td>
 												</tr>
 
 												<tr>
 													<td align="center">${product.p_price}원</td>
 												</tr>
 												<tr>
-													<td>
+													<td align="center">
 														<form method="post" action="/shop/cart">
 															<input type="hidden" name="p_code"
 																value="${product.p_code}"> <select name="cs_cnt">
