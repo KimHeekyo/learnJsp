@@ -3,10 +3,11 @@ package com.it.mapper;
 import java.util.List;
 
 import com.it.domain.BoardVO;
+import com.it.domain.PageDTO;
 
 public interface BoardMapper {
 	
-	public List<BoardVO> getList();	// 값을 넘기지 않았으므로 xml에서 #기호를 쓰지않음
+	public List<BoardVO> getList(PageDTO page);	// 값을 넘기지 않았으므로 xml에서 #기호를 쓰지않음
 	
 	public void insert(BoardVO board);
 	
@@ -15,4 +16,6 @@ public interface BoardMapper {
 	public void update(BoardVO board);
 	
 	public void delete(BoardVO board);
+	
+	public int getTotalCount();
 }

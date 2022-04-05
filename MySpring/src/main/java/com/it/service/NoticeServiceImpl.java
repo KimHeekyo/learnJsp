@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.it.domain.NoticeVO;
+import com.it.domain.PageDTO;
 import com.it.mapper.NoticeMapper;
 
 import lombok.Setter;
@@ -28,8 +29,8 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.insert(notice);
 	}
 	
-	public List<NoticeVO> getList() {
-		return mapper.getList();
+	public List<NoticeVO> getList(PageDTO page) {
+		return mapper.getList(page);
 	}
 	
 	@Override
@@ -40,5 +41,9 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void delete(NoticeVO notice) {
 		mapper.delete(notice);
+	}
+	
+	public int getTotalCount() {
+		return mapper.getTotalCount();
 	}
 }

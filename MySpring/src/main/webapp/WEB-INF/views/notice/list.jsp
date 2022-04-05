@@ -32,12 +32,32 @@
 						<c:forEach items="${list}" var="notice">
 							<tr>
 								<td>${notice.n_num}</td>
-								<td><a href="/notice/view?n_num=${notice.n_num}">${notice.n_subject}</a></td>
+								<td><a href="/notice/view?n_num=${notice.n_num}&pageNum=${pageview.page.pageNum}">${notice.n_subject}</a></td>
 								<td>${notice.n_name}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
 										value="${notice.n_date}" /></td>
 							</tr>
 						</c:forEach>
+						<tr>
+							<td colspan="4">
+								<c:if test="${pageview.prev}">
+									<a href="/notice/list?pageNum=1">[<<]</a>&nbsp;&nbsp;
+									<a href="/notice/list?pageNum=${pageview.startPage-1}">[이전 페이지]</a>&nbsp;&nbsp;
+								</c:if>
+								<c:forEach var="num" begin="${pageview.startPage}" end="${pageview.endPage}">
+									<c:if test="${pageview.page.pageNum == num}"> <!-- 현재 페이지와 같다면 굵게 -->
+										<b><a href="/notice/list?pageNum=${num}">[${num}]</a></b>&nbsp;&nbsp;
+									</c:if>
+									<c:if test="${pageview.page.pageNum != num}"> <!-- 현재 페이지와 같지 않다면 굵지않게 -->
+										<a href="/notice/list?pageNum=${num}">[${num}]</a>&nbsp;&nbsp;
+									</c:if>
+								</c:forEach>
+								<c:if test="${pageview.next}">
+									<a href="/notice/list?pageNum=${pageview.endPage+1}">[다음 페이지]</a>&nbsp;&nbsp;
+									<a href="/notice/list?pageNum=${pageview.realend}">[>>]</a>&nbsp;&nbsp;
+								</c:if>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>

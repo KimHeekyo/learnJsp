@@ -13,7 +13,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">
-				<a href="/notice/list">공지사항 목록</a>
+				<a href="/notice/list?pageNum=${page.pageNum}">공지사항 목록</a>
 			</h6>
 		</div>
 		<div class="card-body">
@@ -53,7 +53,7 @@
 
 			<div class="form-group row">
 				<div class="col-sm-6">
-					<a href="/notice/update?n_num=${notice.n_num}">[수정]</a>
+					<a href="/notice/update?n_num=${notice.n_num}&pageNum=${page.pageNum}">[수정]</a>
 					&nbsp;&nbsp;&nbsp;
 					<a href="/notice/delete?n_num=${notice.n_num}">[삭제]</a>
 				</div>

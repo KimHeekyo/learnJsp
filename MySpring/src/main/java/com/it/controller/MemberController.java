@@ -1,5 +1,7 @@
 package com.it.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,6 +81,33 @@ public class MemberController {
 		log.info("--------------삭제--------------");
 		service.delete(member);
 		return "redirect:/member/list";
+	}
+	
+//	------------------------- 로그인 -----------------------------
+	@GetMapping("/login")
+	public void login() {
+//		로그인 페이지 호출
+	}
+	
+	@PostMapping("/login")
+	public void login(MemberVO member, HttpSession session) {
+		log.info(member);
+		boolean chk = service.auth(member);
+		if (chk == true) {
+			member = service.read(member);	// 아이디와 패스워드가 담겨있음
+			session.setAttribute("m_id", member.getM_id()); // 세션변수 생성
+			session.setAttribute("m_name", member.getM_name()); // 세션변수 생성
+			log.info("인증성공");
+		} else {
+			log.info("인증실패");
+		}
+	}
+	
+//	로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();	// 세션 끊기, 관련된 모든 변수 삭제
+		return "redirect:/";
 	}
 
 }

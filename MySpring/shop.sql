@@ -20,9 +20,19 @@ create table tblboard (
  b_name varchar(50) not null,
  b_date datetime not null default sysdate()
 );
-
 select * from tblboard;
 INSERT INTO tblboard (b_subject, b_name, b_contents) VALUES ('제목이다','홍길동','jsp프로그래밍');
+
+/* tblboard2 테이블 */
+create table tblboard2 (
+ b_num int not null primary key AUTO_INCREMENT,
+ b_subject varchar(100) not null,
+ b_contents varchar(2000) not null,
+ b_file varchar(200), -- 업로드 파일
+ b_name varchar(50) not null,
+ b_date datetime not null default sysdate()
+);
+select * from tblboard2;
 
 /* tblnotice 테이블 */
 create table tblnotice (
@@ -36,6 +46,30 @@ create table tblnotice (
 select * from tblnotice;
 INSERT INTO tblnotice (n_subject, n_name, n_contents) VALUES ('제목이다','홍길동','jsp프로그래밍');
 
+/* 관리자테이블 */
+create table tbladmin (
+	a_id varchar(50) not null primary key, -- 아이디
+	a_passwd varchar(500) not null,	-- 비밀번호
+	a_name varchar(50) not null, -- 성명
+	a_rdate datetime not null default sysdate(),
+	a_udate datetime not null default sysdate()
+);
+insert into tbladmin (a_id, a_passwd, a_name)
+	value ('admin', hex(aes_encrypt('1234', sha2('123098!', 512))), '관리자');
+insert into tbladmin (a_id, a_passwd, a_name)
+	value ('subadmin', hex(aes_encrypt('12345', sha2('123098!', 512))), '보조관리자');
+select * from tbladmin;
+
+select aes_encrypt('tiger123', sha2('aabbcc', 512));
+/* tiger라는 암호를 문자열로 나타냄, sha2 '' = 사용자가 지정한 암호에 추가해서 저장됨(Key), 512바이트 */
+select hex(aes_encrypt('tiger', sha2('aabbcc', 512)));
+/* tiger라는 암호를 16진수 문자열로 나타냄 */
+select aes_decrypt(unhex('1E77A52EC2F562C2160437B7FF908D2B'), sha2('aabbcc', 512));
+/* 비밀번호 변경을 위해서 오리지널 값을 알아내야하기 때문에 사용될 수도 있음 */
+select * from tbladmin where
+	a_id = 'subadmin' and
+	a_passwd = hex(aes_encrypt('12345', sha2('123098!', 512)));
+
 /* 고객테이블 */
 create table tblmember (
 	m_id varchar(50) not null primary key, -- 아이디
@@ -44,6 +78,7 @@ create table tblmember (
 	m_rdate datetime not null default sysdate(),
 	m_udate datetime not null default sysdate()
 );
+select * from tblmember;
 
 /* 상품 테이블 */
 create table tblproduct (
@@ -55,6 +90,17 @@ create table tblproduct (
 );
 alter table tblproduct auto_increment=1001; -- 자릿수를 고정시켜주기 위함
 
+create table tblproduct2 (
+	p_code int not null primary key auto_increment,
+	p_name varchar(100) not null,
+	p_image varchar(2000) null,
+	p_price int not null,
+	p_rdate datetime not null default sysdate(),
+	p_udate datetime not null default sysdate()
+);
+alter table tblproduct auto_increment=1001; -- 자릿수를 고정시켜주기 위함
+select * from tblproduct2;
+drop table tblproduct2;
 
 /* 장바구니 main */
 create table tblcartmain (
@@ -65,6 +111,17 @@ create table tblcartmain (
 	foreign key (m_id) references tblmember(m_id)
 );
 alter table tblcartmain auto_increment=1001;
+
+/* 장바구니2 main */
+create table tblcartmain2 (
+	cm_code int not null primary key auto_increment,
+	m_id varchar(50) not null,
+	cm_rdate datetime not null default sysdate(),
+	cm_udate datetime not null default sysdate(),
+	foreign key (m_id) references tblmember(m_id)
+);
+select * from tblcartmain2;
+alter table tblcartmain2 auto_increment=1001;
 
 
 /* 장바구니 sub */
@@ -80,6 +137,21 @@ create table tblcartsub (
 );
 alter table tblcartsub auto_increment=1001;
 
+/* 장바구니2 sub */
+create table tblcartsub2 (
+	cs_code int not null primary key auto_increment,
+	cm_code int not null, -- foreignkey
+	p_code int not null, -- foreignkey
+	cs_cnt int not null, -- 수량
+	cs_rdate datetime not null default sysdate(),
+	cs_udate datetime not null default sysdate(),
+	foreign key (cm_code) references tblcartmain2(cm_code),
+	foreign key (p_code) references tblproduct2(p_code)
+);
+alter table tblcartsub2 auto_increment=1001;
+select * from tblcartsub2;
+drop table tblcartsub2;
+show tables;
 
 /* 주문 main */
 create table tblordermain (
@@ -90,6 +162,16 @@ create table tblordermain (
 	foreign key (m_id) references tblmember(m_id)
 );
 alter table tblordermain auto_increment=1001;
+
+/* 주문2 main */
+create table tblordermain2 (
+	om_code int not null primary key auto_increment,
+	m_id varchar(50) not null, -- foreignkey
+	om_rdate datetime not null default sysdate(),
+	om_udate datetime not null default sysdate(),
+	foreign key (m_id) references tblmember(m_id)
+);
+alter table tblordermain2 auto_increment=1001;
 
 
 /* 주문 sub */
@@ -104,6 +186,19 @@ create table tblordersub (
 	foreign key (p_code) references tblproduct(p_code)
 );
 alter table tblordersub auto_increment=1001;
+
+/* 주문2 sub */
+create table tblordersub2 (
+	os_code int not null primary key auto_increment,
+	om_code int not null,
+	p_code int not null,
+	os_cnt int not null,
+	os_rdate datetime not null default sysdate(),
+	os_udate datetime not null default sysdate(),
+	foreign key (om_code) references tblordermain2(om_code),
+	foreign key (p_code) references tblproduct2(p_code)
+);
+alter table tblordersub2 auto_increment=1001;
 
 /* 전체 테이블 삭제 */
 --drop table tblordersub;
@@ -176,6 +271,8 @@ insert into tblordersub (om_code, p_code, os_cnt)
 -- subquery, 부질의
 
 desc tblmember;
+
+
 --lion의 장바구니에 담긴 물건 구매
 insert into tblordermain (m_id) values ('lion');
 
@@ -207,8 +304,27 @@ select sum(p.p_price * os.os_cnt)
 		(select om_code from tblordermain where m_id = 'tiger'
 		order by om_code desc limit 1);
 
+delete from tblordersub;
+delete from tblordermain;
+delete from tblcartsub;
+delete from tblcartmain;
 
+desc tblcartsub;
 
+select * from tblcartmain;
+select * from tblcartsub;
+show tables;
+select * from tblordermain;
+select * from tblordersub;
 
+insert into tblboard (b_subject, b_contents, b_name)
+	select b_subject, b_contents, b_name from tblboard;
+	
+select count(*) from tblboard;
 
+select * from tblboard order by b_num desc limit 10 offset 20;
 
+insert into tblnotice (n_subject, n_contents, n_name)
+	select n_subject, n_contents, n_name from tblnotice;
+	
+select count(*) from tblnotice;

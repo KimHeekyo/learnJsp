@@ -13,7 +13,7 @@
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">
-				<a href="/board/list">게시판리스트</a>
+				<a href="/board/list?pageNum=${page.pageNum}">게시판리스트</a>
 			</h6>
 		</div>
 		<div class="card-body">
@@ -53,7 +53,7 @@
 
 			<div class="form-group row">
 				<div class="col-sm-6">
-					<a href="/board/update?b_num=${board.b_num}">[수정]</a>
+					<a href="/board/update?b_num=${board.b_num}&pageNum=${page.pageNum}">[수정]</a>
 					&nbsp;&nbsp;&nbsp;
 					<a href="/board/delete?b_num=${board.b_num}">[삭제]</a>
 				</div>

@@ -3,6 +3,7 @@ package com.it.service;
 import java.util.List;
 
 import com.it.domain.NoticeVO;
+import com.it.domain.PageDTO;
 
 public interface NoticeService {
 	
@@ -10,10 +11,12 @@ public interface NoticeService {
 	
 	public void insert(NoticeVO notice);
 	
-	public List<NoticeVO> getList();
+	public List<NoticeVO> getList(PageDTO page);
 	
 	public void update(NoticeVO notice);
 	
 	public void delete(NoticeVO notice);
+	
+	public int getTotalCount();
 
 }
